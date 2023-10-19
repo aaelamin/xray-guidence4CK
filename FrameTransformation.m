@@ -10,9 +10,10 @@ function [transformation_A, transformation_B] = FrameTransformation()
 %   Transformation_B: A 4x4 homogeneous transformation matrix detector B.
 %
     % Firstly, we calculate the angles detector A and B were rotated by.
+    
     angle_A = deg2rad(45);
     angle_B = deg2rad(-45);
-    
+
     % a 4x4 homogeneous translation matrix has a the form of [1, 0, 0, -ovx
     %                                                         0, 1, 0, -ovy 
     %                                                         0, 0, 1, -ovz 
