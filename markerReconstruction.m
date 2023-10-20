@@ -1,4 +1,4 @@
-function reconstructedPoint = markerReconstruction(pointA, pointB)
+function [reconstructedPoint, error] = markerReconstruction(pointA, pointB)
 %
 % INPUT:
 %   PointA: 
@@ -7,6 +7,7 @@ function reconstructedPoint = markerReconstruction(pointA, pointB)
 %   reconstructedPoint: 
 %   error:
 
+    addpath("/Users/elamin/Courses/CISC 330/Assignment-1/Questions")
     angle_A = deg2rad(45);
     angle_B = deg2rad(-45);
 
@@ -20,12 +21,19 @@ function reconstructedPoint = markerReconstruction(pointA, pointB)
     % v, to CK frame, home frame (h), we inverse the tranformation frame
     % from home to destination in order to get 
 
-    sa = [sin(angle_A)*100, cos(angle_A)*100, 100];
-    sb = [sin(angle_B)*100, cos(angle_B)*100, 100];
+    sa = [sin(angle_A)*100, cos(angle_A)*100, 100]';
+    sb = [sin(angle_B)*100, cos(angle_B)*100, 100]';
 
-    transformationMatrix = FrameTransformation;
+    [transformation_A, transformation_B] = FrameTransformation;
 
-    CKpointA = transformationMatrix^(-1) * pointA';
-    CKpointB = transformationMatrix^(-1) * pointB';
+    CKpointA = transformation_A^(-1) * pointA';
+    CKpointB = transformation_B^(-1) * pointB';
 
-    
+    CKpointA = CKpointA(1:3);
+    CKpointB = CKpointB(1:3);
+
+    va = sa-CKpointA/ norm(sa-CKpointA);
+    vb = sb-CKpointB/ norm(sb-CKpointB);
+
+    [reconstructedPoint, error] = IntersectTwoLines(CKpointA, va, CKpointB, vb);
+

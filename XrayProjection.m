@@ -10,11 +10,6 @@ function [projection_A, projection_B] = XrayProjection(pointCK)
 %   pointB: 3-element vector [x_B; y_B; z_B] representing the coordinates
 %           of the projected p
 
-    % The following are given scalling factors that will assist in scalling
-    % the projected point appropriatly
-
-    SDD = 200;  % Source-Detector Distance
-    SAD = 100;  % Source-Axis Distance 
 
     % Firstly, we calculate the angles detector A and B were rotated by.
     % this woudl make it easier to calculate normal vectors for each in the
@@ -54,8 +49,8 @@ function [projection_A, projection_B] = XrayProjection(pointCK)
     % and y coordinates and scale them using the Source-Detector Distance
     % and Source-Axis Distance
     
-    projection_A = pointA(1:2) * (SDD/SAD);
-    projection_B = pointB(1:2) * (SDD/SAD);
+    projection_A = pointA;
+    projection_B = pointB;
 
  
 end
@@ -72,13 +67,10 @@ function projection = pointProjection(Point, center, NormalVector)
     % Calculate the direction vector from the center to the point
         V = Point - center;
 
-        % Normalize the normal vector
-        N_normalized = NormalVector / norm(NormalVector);
-
-        % Calculate the dot product of V and the normalized normal vector
-        dotProduct = dot(V, N_normalized);
+        % Calculae the dot product of V and the normalized normal vector
+        projectionPoint = dot(V, NormalVector) / norm(NormalVector)^2 * NormalVector;
 
         % Calculate the projected point
-        projection = Point - dotProduct * N_normalized;
+        projection = center + projectionPoint;
 
 end

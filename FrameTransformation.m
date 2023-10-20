@@ -30,7 +30,7 @@ function [transformation_A, transformation_B] = FrameTransformation()
                          0, 0, 0, 1];
 
 
-    % Detector A was rotated by 45 degrees clockwise about z axis and the
+    % Detector A was rotated by 45 degrees counter clockwise about z axis and the
     % 4x4 homogeneous rotational matrix is a representation of that
 
     rotationMatrix_A = [cos(angle_A), -sin(angle_A), 0, 0;
@@ -38,7 +38,7 @@ function [transformation_A, transformation_B] = FrameTransformation()
                             0, 0, 1, 0;
                             0, 0, 0, 1];
 
-    % Detector B was rotated by 45 degrees counter clockwise about z axis and the
+    % Detector B was rotated by 45 degrees  clockwise about z axis and the
     % 4x4 homogeneous rotational matrix is a representation of that
 
     rotationMatrix_B = [cos(angle_B), -sin(angle_B), 0, 0;
@@ -54,4 +54,3 @@ function [transformation_A, transformation_B] = FrameTransformation()
     transformation_A = translationMatrix * rotationMatrix_A;
     transformation_B = translationMatrix * rotationMatrix_B;
     
-  
