@@ -54,3 +54,5 @@ function [transformation_A, transformation_B] = FrameTransformation()
     transformation_A = translationMatrix * rotationMatrix_A;
     transformation_B = translationMatrix * rotationMatrix_B;
     
+    transformation_A = round(transformation_A, 4);
+    transformation_B = round(transformation_B, 4);
