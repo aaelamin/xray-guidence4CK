@@ -1,4 +1,4 @@
-function [transformation_A, transformation_B] = FrameTransformation()
+function [transformation_CKtoA, transformation_CKtoB] = FrameTransformation()
 %
 % INPUTS:
 %
@@ -24,16 +24,16 @@ function [transformation_A, transformation_B] = FrameTransformation()
     % (Ov) of (0, 0, 0) so we sub in those values into the 4x4 homogeneous
     % translation matrix to obtttain matrix below
 
-    translationMatrix = [1, 0, 0, 0;
-                         0, 1, 0, 0;
-                         0, 0, 1, 0;
-                         0, 0, 0, 1];
+    translationMatrix_CKtodetector = [1, 0, 0, 0;
+                                      0, 1, 0, 0;
+                                      0, 0, 1, 0;
+                                      0, 0, 0, 1];
 
 
     % Detector A was rotated by 45 degrees counter clockwise about z axis and the
     % 4x4 homogeneous rotational matrix is a representation of that
 
-    rotationMatrix_A = [cos(angle_A), -sin(angle_A), 0, 0;
+    rotationMatrix_CKtoA = [cos(angle_A), -sin(angle_A), 0, 0;
                             sin(angle_A), cos(angle_A), 0, 0;
                             0, 0, 1, 0;
                             0, 0, 0, 1];
@@ -41,7 +41,7 @@ function [transformation_A, transformation_B] = FrameTransformation()
     % Detector B was rotated by 45 degrees  clockwise about z axis and the
     % 4x4 homogeneous rotational matrix is a representation of that
 
-    rotationMatrix_B = [cos(angle_B), -sin(angle_B), 0, 0;
+    rotationMatrix_CKtoB = [cos(angle_B), -sin(angle_B), 0, 0;
                             sin(angle_B), cos(angle_B), 0, 0;
                             0, 0, 1, 0;
                             0, 0, 0, 1];
@@ -51,8 +51,8 @@ function [transformation_A, transformation_B] = FrameTransformation()
     % are destination frame "v". We multiply the homogeneous translation matrix
     % with the homogeneous rotation matrix to get the homogeneous transformation matrix
 
-    transformation_A = translationMatrix * rotationMatrix_A;
-    transformation_B = translationMatrix * rotationMatrix_B;
+    transformation_A = translationMatrix_CKtodetector * rotationMatrix_CKtoA;
+    transformation_B = translationMatrix_CKtodetector * rotationMatrix_CKtoB;
     
-    transformation_A = round(transformation_A, 4);
-    transformation_B = round(transformation_B, 4);
+    transformation_CKtoA = round(transformation_A, 4);
+    transformation_CKtoB = round(transformation_B, 4);

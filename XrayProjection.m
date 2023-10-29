@@ -1,14 +1,14 @@
-function [projection_A, projection_B] = XrayProjection(pointCK)
+function [projection_detectorA, projection_detectorB] = XrayProjection(pointCK)
 % X-ray projection function to project a point in CK space onto the two imaging detectors (A and B).
 %
 % INPUT:
-%   pointCK: 3-element vector representing a point in CK space [x; y; z].
+%   pointCK: 3-element vector representing a point in CK space.
 
 % OUTPUT:
-%   projection_A: 3-element vector [x_A; y_A; z_A] representing the coordinates
+%   projection_detectorA: 3-element vector representing the coordinates
 %           of the projected point in Detector A's image frame.
-%   pointB: 3-element vector [x_B; y_B; z_B] representing the coordinates
-%           of the projected p
+%   projection_detectorB: 3-element vector representing the coordinates
+%           of the projected point in Detector B's image frame.
 
 
     % Firstly, we calculate the angles detector A and B were rotated by.
@@ -30,47 +30,40 @@ function [projection_A, projection_B] = XrayProjection(pointCK)
     % we can represent them using x and y coordinates and that eliminates
     % the need for coordinate z which is why it is 0
 
-    normalVectorA = [sin(angle_A), cos(angle_A), 0];
-    normalVectorB = [sin(angle_B), cos(angle_B), 0];
+    normalVector_detectorA = [sin(angle_A), cos(angle_A), 0];
+    normalVector_detectorB = [sin(angle_B), cos(angle_B), 0];
 
-    % The detectors' centre given in the asssignemnt's pdf file
-    detectorOrgin = [0, 0, 0];
 
     % Here we are calling a helper functions that takes in the point in CK
-    % frame, the origin or centre of destination frame (really a point on
-    % the destination frame) and the normal vector of the detector and
-    % computes the projection from Home (3D CK frame) to destination (2D
-    % detector frame)
+    % frame, and the normal vector of the detector and computes the 
+    % projection from Home (3D CK frame) to destination (2D detector frame)
 
-    pointA = pointProjection(pointCK, detectorOrgin, normalVectorA);
-    pointB = pointProjection(pointCK, detectorOrgin, normalVectorB);
+    pointA = pointProjection(pointCK, normalVector_detectorA);
+    pointB = pointProjection(pointCK, normalVector_detectorB);
 
     % Since coordinate z is typically zero or insignficant we extract the x
     % and y coordinates and scale them using the Source-Detector Distance
     % and Source-Axis Distance
     
-    projection_A = pointA;
-    projection_B = pointB;
+    projection_detectorA = pointA;
+    projection_detectorB = pointB;
 
  
 end
 
-function projection = pointProjection(Point, center, NormalVector)
+function projection_CKtoDetector = pointProjection(PointCK, NormalVector)
 % Inputs:
-%   Point - 3D coordinates of the point to be projected.
-%   center - 3D coordinates of the plane's center.
+%   PointCK - 3D coordinates of the point in CK frame.
 %   NormalVector - 3D normal vector of the plane.
 %
 % Output:
 %   projection - 3D coordinates of the projected point
 
-    % Calculate the direction vector from the center to the point
-        V = Point - center;
+        
+        projection_CKtoDetector = dot(PointCK, NormalVector) / norm(NormalVector)^2 * NormalVector;
 
-        % Calculae the dot product of V and the normalized normal vector
-        projectionPoint = dot(V, NormalVector) / norm(NormalVector)^2 * NormalVector;
-
-        % Calculate the projected point
-        projection = center + projectionPoint;
 
 end
+
+
+% https://www.maplesoft.com/support/help/maple/view.aspx?path=MathApps%2FProjectionOfVectorOntoPlane
