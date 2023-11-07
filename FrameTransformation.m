@@ -1,3 +1,5 @@
+
+
 function [transformation_CKtoA, transformation_CKtoB] = FrameTransformation()
 %
 % INPUTS:
@@ -13,22 +15,21 @@ function [transformation_CKtoA, transformation_CKtoB] = FrameTransformation()
     
     angle_A = deg2rad(45);
     angle_B = deg2rad(-45);
-
     % a 4x4 homogeneous translation matrix has a the form of [1, 0, 0, -ovx
     %                                                         0, 1, 0, -ovy 
     %                                                         0, 0, 1, -ovz 
     %                                                         0, 0, 0, 1 ]
     % where ovx, ovy, ovx represent the origin of the detination frame we
     % want to translate to. 
-    % We know the destination frame (detector A and B) has a centre or orgin
-    % (Ov) of (0, 0, 0) so we sub in those values into the 4x4 homogeneous
-    % translation matrix to obtttain matrix below
+    % We know the destination frame without rotation lies at (0, -100, 0)
+    % relative to the centre of the CK frame (0, 0, 0) 
 
-    translationMatrix_CKtodetector = [1, 0, 0, 0;
-                                      0, 1, 0, 0;
-                                      0, 0, 1, 0;
-                                      0, 0, 0, 1];
+    translationMatrix_CKtodetector= [1, 0, 0, 0;
+                                       0, 1, 0, -100;
+                                       0, 0, 1, 0;
+                                       0, 0, 0, 1];
 
+    
 
     % Detector A was rotated by 45 degrees counter clockwise about z axis and the
     % 4x4 homogeneous rotational matrix is a representation of that
@@ -56,3 +57,4 @@ function [transformation_CKtoA, transformation_CKtoB] = FrameTransformation()
     
     transformation_CKtoA = round(transformation_A, 4);
     transformation_CKtoB = round(transformation_B, 4);
+end

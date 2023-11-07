@@ -1,6 +1,5 @@
 
 function correspondenceMatrix = markerCorrespondence(A1, A2, A3, B1, B2, B3)
-% resolveMarkerCorrespondences - Resolve correspondences between three identical markers.
 % INPUTS:
 %   A1, A2, A3 - Coordinates of three points in the A image frame.
 %   B1, B2, B3 - Coordinates of three points in the B image frame.
@@ -29,7 +28,7 @@ function correspondenceMatrix = markerCorrespondence(A1, A2, A3, B1, B2, B3)
     for i = 1:3
         for j = 1:3
             [~, rem] = markerReconstruction(pointsA(i, :), pointsB(j, :)); 
-            rmeMatrix(i, j) = rem;
+            rmeMatrix(i, j) = rem
         end
     end
 

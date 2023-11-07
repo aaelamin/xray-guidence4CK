@@ -17,7 +17,7 @@ classdef test_FrameTransformation < matlab.unittest.TestCase
             point = [1, 0, 0];
             [frametransformation_A, ~] = FrameTransformation;
             actSol = frametransformation_A * [point, 1]';
-            expSol = [0.7071; 0.7071; 0; 1];
+            expSol = [0.7071; -99.2929; 0; 1];
             test1.verifyEqual(actSol, expSol, 'AbsTol', eps)
         end 
 
@@ -25,7 +25,7 @@ classdef test_FrameTransformation < matlab.unittest.TestCase
             point = [0, 1, 0];
             [frametransformation_A, ~] = FrameTransformation;
             actSol = frametransformation_A * [point, 1]';
-            expSol = [-0.7071; 0.7071; 0; 1];
+            expSol = [-0.7071; -99.2929; 0; 1];
             test2.verifyEqual(actSol, expSol, 'AbsTol', eps)
         end 
 
@@ -33,7 +33,7 @@ classdef test_FrameTransformation < matlab.unittest.TestCase
             point = [0, 1, 1];
             [frametransformation_A, ~] = FrameTransformation;
             actSol = frametransformation_A * [point, 1]';
-            expSol = [-0.7071; 0.7071; 1; 1];  
+            expSol = [-0.7071; -99.2929; 1; 1];  
             test3.verifyEqual(actSol, expSol, 'AbsTol', eps)
         end 
 
@@ -41,7 +41,7 @@ classdef test_FrameTransformation < matlab.unittest.TestCase
             point = [1, 0, 0];
             [~, frametransformation_B] = FrameTransformation;
             actSol = frametransformation_B * [point, 1]';
-            expSol = [0.7071; -0.7071; 0; 1 ];
+            expSol = [0.7071; -100.7071; 0; 1 ];
             test4.verifyEqual(actSol, expSol, 'AbsTol', eps)
         end 
 
@@ -50,7 +50,7 @@ classdef test_FrameTransformation < matlab.unittest.TestCase
             point = [0, 1, 0];
             [~, frametransformation_B] = FrameTransformation;
             actSol = frametransformation_B * [point, 1]';
-            expSol = [0.7071; 0.7071; 0; 1];
+            expSol = [0.7071; -99.2929; 0; 1];
             test5.verifyEqual(actSol, expSol, 'AbsTol', eps)
         end 
 
@@ -58,7 +58,7 @@ classdef test_FrameTransformation < matlab.unittest.TestCase
             point = [0, 1, 1];
             [~, frametransformation_B] = FrameTransformation;
             actSol = frametransformation_B * [point, 1]';
-            expSol = [0.7071; 0.7071; 1; 1]; 
+            expSol = [0.7071; -99.2929; 1; 1];
             test6.verifyEqual(actSol, expSol, 'AbsTol', eps)
         end 
 

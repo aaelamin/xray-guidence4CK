@@ -64,6 +64,3 @@ function projection_CKtoDetector = pointProjection(PointCK, NormalVector)
 
 
 end
-
-
-% https://www.maplesoft.com/support/help/maple/view.aspx?path=MathApps%2FProjectionOfVectorOntoPlane
